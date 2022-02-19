@@ -1,3 +1,8 @@
+# Config file
+.idea
+*.log
+*.yaml
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
