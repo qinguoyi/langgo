@@ -1,0 +1,2 @@
+# langlangGo
+self-go-tool
