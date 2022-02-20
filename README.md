@@ -1,2 +1,2 @@
 # langlangGo
-self-go-tool
+Go实践 && 工具
