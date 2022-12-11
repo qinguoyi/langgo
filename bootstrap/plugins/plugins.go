@@ -25,6 +25,7 @@ func RegisteredPlugin(plugin Plugin) {
 	Plugins[plugin.Name()] = plugin
 }
 
+// NewPlugins 初始化插件资源
 func NewPlugins() {
 	for _, p := range Plugins {
 		bootstrap.NewLogger().Logger.Info(fmt.Sprintf("%s Init ... ", p.Name()))
@@ -35,6 +36,7 @@ func NewPlugins() {
 	}
 }
 
+// ClosePlugins 释放插件资源
 func ClosePlugins() {
 	for _, p := range Plugins {
 		p.Close()

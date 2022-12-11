@@ -13,6 +13,7 @@ var lgLogger *bootstrap.LangGoLogger
 // 不能提前创建，变量的初始化在main之前，导致lgDB为nil
 //var lgDB = new(plugins.LangGoDB).NewDB()
 
+// Test .
 func Test(c *gin.Context) {
 	var lgDB = new(plugins.LangGoDB).NewDB()
 	var lgRedis = new(plugins.LangGoRedis).NewRedis()

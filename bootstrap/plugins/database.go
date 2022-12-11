@@ -34,6 +34,7 @@ func newLangGoDB() *LangGoDB {
 	}
 }
 
+// NewDB .
 func (lg *LangGoDB) NewDB() *gorm.DB {
 	if lgDB.DB != nil {
 		return lgDB.DB
@@ -42,6 +43,7 @@ func (lg *LangGoDB) NewDB() *gorm.DB {
 	}
 }
 
+// Name .
 func (lg *LangGoDB) Name() string {
 	return "DB"
 }
@@ -53,6 +55,7 @@ func (lg *LangGoDB) New() interface{} {
 	return lg.DB
 }
 
+// Health .
 func (lg *LangGoDB) Health() {
 	tx := lgDB.DB.Exec("select now();")
 

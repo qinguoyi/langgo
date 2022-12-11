@@ -14,10 +14,12 @@ import (
 打印请求和响应数据
 */
 
+// RequestLog .
 type RequestLog struct {
 	Logger *bootstrap.LangGoLogger
 }
 
+// NewRequestLog .
 func NewRequestLog(logger *bootstrap.LangGoLogger) *RequestLog {
 	return &RequestLog{
 		Logger: logger,

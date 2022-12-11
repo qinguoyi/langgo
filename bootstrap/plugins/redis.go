@@ -12,11 +12,13 @@ import (
 
 var lgRedis = new(LangGoRedis)
 
+// LangGoRedis .
 type LangGoRedis struct {
 	Once        *sync.Once
 	RedisClient *redis.Client
 }
 
+// NewRedis .
 func (lg *LangGoRedis) NewRedis() *redis.Client {
 	if lgRedis.RedisClient != nil {
 		return lgRedis.RedisClient
@@ -32,16 +34,19 @@ func newLangGoRedis() *LangGoRedis {
 	}
 }
 
+// Name .
 func (lg *LangGoRedis) Name() string {
 	return "Redis"
 }
 
+// New .
 func (lg *LangGoRedis) New() interface{} {
 	lgRedis = newLangGoRedis()
 	lgRedis.initRedis(bootstrap.NewConfig())
 	return lgRedis.RedisClient
 }
 
+// Health .
 func (lg *LangGoRedis) Health() {
 	if err := lgRedis.RedisClient.Ping(context.Background()).Err(); err != nil {
 		bootstrap.NewLogger().Logger.Error("redis connect failed, err:", zap.Any("err", err))
@@ -49,6 +54,7 @@ func (lg *LangGoRedis) Health() {
 	}
 }
 
+// Close .
 func (lg *LangGoRedis) Close() {
 	if lg.RedisClient == nil {
 		return

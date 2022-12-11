@@ -1,5 +1,6 @@
 package models
 
+// User .
 type User struct {
 	ID
 	Name     string `json:"name" gorm:"not null;comment:用户名"`

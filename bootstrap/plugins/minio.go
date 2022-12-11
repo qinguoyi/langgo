@@ -12,11 +12,13 @@ import (
 
 var lgMinio = new(LangGoMinio)
 
+// LangGoMinio .
 type LangGoMinio struct {
 	Once        *sync.Once
 	MinioClient *minio.Client
 }
 
+// NewMinio .
 func (lg *LangGoMinio) NewMinio() *minio.Client {
 	if lgMinio.MinioClient != nil {
 		return lgMinio.MinioClient
@@ -32,16 +34,19 @@ func newLangGoMinio() *LangGoMinio {
 	}
 }
 
+// Name .
 func (lg *LangGoMinio) Name() string {
 	return "Minio"
 }
 
+// New .
 func (lg *LangGoMinio) New() interface{} {
 	lgMinio = newLangGoMinio()
 	lgMinio.initMinio(bootstrap.NewConfig())
 	return lg.MinioClient
 }
 
+// Health .
 func (lg *LangGoMinio) Health() {
 	_, err := lgMinio.MinioClient.ListBuckets(context.Background())
 	if err != nil {
@@ -50,6 +55,7 @@ func (lg *LangGoMinio) Health() {
 	}
 }
 
+// Close .
 func (lg *LangGoMinio) Close() {}
 
 func init() {

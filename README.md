@@ -1,5 +1,6 @@
 # LangGo
 基于Gin封装的业务脚手架
+
 ## 功能
 * 支持插件化管理，DB/Redis/Minio等基础组件
 * 支持TraceId
