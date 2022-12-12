@@ -1,8 +1,8 @@
 package plugins
 
 import (
-	"StorageProxy/bootstrap"
 	"fmt"
+	"langgo/bootstrap"
 )
 
 // Plugin 插件接口

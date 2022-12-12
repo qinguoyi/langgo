@@ -1,21 +1,22 @@
 package bootstrap
 
 import (
-	"StorageProxy/config"
-	"StorageProxy/utils"
 	"fmt"
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
+	"langgo/config"
+	"langgo/utils"
 	"path/filepath"
 	"sync"
 )
 
 var (
-	configPath string
-	rootPath   = utils.RootPath()
-	lgConfig   = new(LangGoConfig)
+	configPath   string
+	rootPath     = utils.RootPath()
+	lgConfig     = new(LangGoConfig)
+	confFilePath = ""
 )
 
 // LangGoConfig 自定义Log
@@ -33,34 +34,38 @@ func newLangGoConfig() *LangGoConfig {
 }
 
 // NewConfig 初始化配置对象
-func NewConfig() *config.Configuration {
+func NewConfig(confFile string) *config.Configuration {
 	if lgConfig.Conf != nil {
 		return lgConfig.Conf
 	} else {
 		lgConfig = newLangGoConfig()
-		lgConfig.initLangGoConfig()
+		if confFile == "" {
+			lgConfig.initLangGoConfig(confFilePath)
+		} else {
+			lgConfig.initLangGoConfig(confFile)
+		}
 		return lgConfig.Conf
 	}
 }
 
 // InitLangGoConfig 初始化日志
-func (lg *LangGoConfig) initLangGoConfig() {
+func (lg *LangGoConfig) initLangGoConfig(confFile string) {
 	lg.Once.Do(
 		func() {
-			initConfig(lg.Conf)
+			initConfig(lg.Conf, confFile)
 		},
 	)
 }
 
-func initConfig(conf *config.Configuration) {
-	pflag.StringVarP(&configPath, "conf", "", filepath.Join(rootPath, "go-storage-proxy/conf", "config.yaml"),
+func initConfig(conf *config.Configuration, confFile string) {
+	pflag.StringVarP(&configPath, "conf", "", filepath.Join(rootPath, confFile),
 		"config path, eg: --conf config.yaml")
 	if !filepath.IsAbs(configPath) {
-		configPath = filepath.Join(rootPath, "conf", configPath)
+		configPath = filepath.Join(rootPath, configPath)
 	}
 
 	//lgLogger.Logger.Info("load config:" + configPath)
-	fmt.Println("load config:" + configPath)
+	fmt.Println("Load Config: " + configPath)
 
 	v := viper.New()
 	v.SetConfigFile(configPath)

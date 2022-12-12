@@ -1,10 +1,10 @@
 package api
 
 import (
-	v0 "StorageProxy/api/v0"
-	"StorageProxy/app/middleware"
-	"StorageProxy/config"
 	"github.com/gin-gonic/gin"
+	v0 "langgo/api/v0"
+	"langgo/app/middleware"
+	"langgo/config"
 )
 
 // NewRouter .

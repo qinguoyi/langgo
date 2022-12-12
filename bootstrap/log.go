@@ -1,12 +1,12 @@
 package bootstrap
 
 import (
-	"StorageProxy/config"
-	"StorageProxy/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
+	"langgo/config"
+	"langgo/utils"
 	"os"
 	"path/filepath"
 	"strconv"

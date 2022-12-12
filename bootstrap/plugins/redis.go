@@ -1,12 +1,12 @@
 package plugins
 
 import (
-	"StorageProxy/bootstrap"
-	"StorageProxy/config"
 	"context"
 	"github.com/go-redis/redis/extra/redisotel"
 	"github.com/go-redis/redis/v8"
 	"go.uber.org/zap"
+	"langgo/bootstrap"
+	"langgo/config"
 	"sync"
 )
 
@@ -42,7 +42,7 @@ func (lg *LangGoRedis) Name() string {
 // New .
 func (lg *LangGoRedis) New() interface{} {
 	lgRedis = newLangGoRedis()
-	lgRedis.initRedis(bootstrap.NewConfig())
+	lgRedis.initRedis(bootstrap.NewConfig(""))
 	return lgRedis.RedisClient
 }
 

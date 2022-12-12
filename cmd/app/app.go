@@ -1,10 +1,10 @@
 package main
 
 import (
-	"StorageProxy/config"
 	"context"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"langgo/config"
 	"log"
 	"net/http"
 	"os"

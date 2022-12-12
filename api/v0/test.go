@@ -1,10 +1,10 @@
 package v0
 
 import (
-	"StorageProxy/bootstrap"
-	"StorageProxy/bootstrap/plugins"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"langgo/bootstrap"
+	"langgo/bootstrap/plugins"
 	"net/http"
 )
 
@@ -15,7 +15,7 @@ var lgLogger *bootstrap.LangGoLogger
 
 // Test .
 func Test(c *gin.Context) {
-	var lgDB = new(plugins.LangGoDB).NewDB()
+	var lgDB = new(plugins.LangGoDB).Use("mysql").NewDB()
 	var lgRedis = new(plugins.LangGoRedis).NewRedis()
 
 	lgDB.Exec("select now();")

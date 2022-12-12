@@ -1,10 +1,10 @@
 package middleware
 
 import (
-	"StorageProxy/bootstrap"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"go.uber.org/zap"
+	"langgo/bootstrap"
 )
 
 // TraceLog .

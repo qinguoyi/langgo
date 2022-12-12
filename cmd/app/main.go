@@ -1,15 +1,15 @@
 package main
 
 import (
-	"StorageProxy/api"
-	"StorageProxy/app/middleware"
-	"StorageProxy/bootstrap"
-	"StorageProxy/bootstrap/plugins"
+	"langgo/api"
+	"langgo/app/middleware"
+	"langgo/bootstrap"
+	"langgo/bootstrap/plugins"
 )
 
 func main() {
 	// config log
-	lgConfig := bootstrap.NewConfig()
+	lgConfig := bootstrap.NewConfig("conf/config.yaml")
 	lgLogger := bootstrap.NewLogger()
 
 	// plugins DB Redis Minio

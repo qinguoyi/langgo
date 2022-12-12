@@ -1,4 +1,4 @@
-module StorageProxy
+module langgo
 
 go 1.18
 
@@ -14,6 +14,7 @@ require (
 	go.uber.org/zap v1.24.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gorm.io/driver/mysql v1.4.4
+	gorm.io/driver/postgres v1.4.5
 	gorm.io/gorm v1.24.2
 )
 
@@ -73,5 +74,4 @@ require (
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	gorm.io/driver/postgres v1.4.5 // indirect
 )

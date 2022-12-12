@@ -1,12 +1,12 @@
 package plugins
 
 import (
-	"StorageProxy/bootstrap"
-	"StorageProxy/config"
 	"context"
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
 	"go.uber.org/zap"
+	"langgo/bootstrap"
+	"langgo/config"
 	"sync"
 )
 
@@ -42,7 +42,7 @@ func (lg *LangGoMinio) Name() string {
 // New .
 func (lg *LangGoMinio) New() interface{} {
 	lgMinio = newLangGoMinio()
-	lgMinio.initMinio(bootstrap.NewConfig())
+	lgMinio.initMinio(bootstrap.NewConfig(""))
 	return lg.MinioClient
 }
 

@@ -22,7 +22,7 @@ func RootPath() string {
 	if strings.Contains(exePath, tmpDir) {
 		_, filename, _, ok := runtime.Caller(0)
 		if ok {
-			rootDir = filepath.Dir(filepath.Dir(filepath.Dir(filename)))
+			rootDir = filepath.Dir(filepath.Dir(filename))
 		}
 	}
 

@@ -2,6 +2,7 @@ package plugins
 
 // Database 数据库配置
 type Database struct {
+	DBName              string `mapstructure:"db_name" json:"db_name" yaml:"db_name"`
 	Driver              string `mapstructure:"driver" json:"driver" yaml:"driver"`
 	Host                string `mapstructure:"host" json:"host" yaml:"host"`
 	Port                int    `mapstructure:"port" json:"port" yaml:"port"`
