@@ -1,0 +1,38 @@
+basePath: /
+definitions:
+  langgo_app_pkg_response.Response:
+    properties:
+      code:
+        description: 自定义错误码
+        type: integer
+      data:
+        description: 数据
+      message:
+        description: 信息
+        type: string
+    type: object
+host: 127.0.0.1:8890
+info:
+  contact:
+    email: qinguoyiwork@gmail.com
+    name: qinguoyi
+  description: LangGo相关接口
+  title: 业务框架LangGo接口
+  version: "1.0"
+paths:
+  /api/storage/v0/ping:
+    get:
+      consumes:
+      - application/json
+      description: LangGo的测试接口
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/langgo_app_pkg_response.Response'
+      summary: 测试接口
+      tags:
+      - 测试
+swagger: "2.0"

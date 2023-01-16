@@ -1,4 +1,4 @@
-package main
+package app
 
 import (
 	"context"
@@ -20,7 +20,8 @@ type App struct {
 	httpSrv *http.Server
 }
 
-func newHttpServer(
+// NewHttpServer 创建http server engine
+func NewHttpServer(
 	conf *config.Configuration,
 	router *gin.Engine,
 ) *http.Server {
@@ -30,7 +31,8 @@ func newHttpServer(
 	}
 }
 
-func newApp(
+// NewApp 创建新应用
+func NewApp(
 	conf *config.Configuration,
 	logger *zap.Logger,
 	httpSrv *http.Server,
@@ -42,11 +44,11 @@ func newApp(
 	}
 }
 
-// runServer 启动服务
-func (a *App) runServer() {
+// RunServer 启动服务
+func (a *App) RunServer() {
 	// 启动应用
 	a.logger.Info("start app ...")
-	if err := a.Run(); err != nil {
+	if err := a.run(); err != nil {
 		panic(err)
 	}
 
@@ -62,13 +64,13 @@ func (a *App) runServer() {
 	defer cancel()
 
 	// 关闭应用
-	if err := a.Stop(ctx); err != nil {
+	if err := a.stop(ctx); err != nil {
 		panic(err)
 	}
 }
 
-// Run 启动服务
-func (a *App) Run() error {
+// run 启动服务
+func (a *App) run() error {
 	// 启动 http server
 	go func() {
 		a.logger.Info("http server started")
@@ -80,8 +82,8 @@ func (a *App) Run() error {
 	return nil
 }
 
-// Stop 停止服务
-func (a *App) Stop(ctx context.Context) error {
+// stop 停止服务
+func (a *App) stop(ctx context.Context) error {
 	// 关闭 http server
 	a.logger.Info("http server has been stop")
 	if err := a.httpSrv.Shutdown(ctx); err != nil {

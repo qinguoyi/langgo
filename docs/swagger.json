@@ -1,0 +1,57 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "LangGo相关接口",
+        "title": "业务框架LangGo接口",
+        "contact": {
+            "name": "qinguoyi",
+            "email": "qinguoyiwork@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "host": "127.0.0.1:8890",
+    "basePath": "/",
+    "paths": {
+        "/api/storage/v0/ping": {
+            "get": {
+                "description": "LangGo的测试接口",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "测试"
+                ],
+                "summary": "测试接口",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/langgo_app_pkg_response.Response"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "langgo_app_pkg_response.Response": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "自定义错误码",
+                    "type": "integer"
+                },
+                "data": {
+                    "description": "数据"
+                },
+                "message": {
+                    "description": "信息",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

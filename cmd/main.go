@@ -2,11 +2,19 @@ package main
 
 import (
 	"langgo/api"
+	"langgo/app"
 	"langgo/app/middleware"
 	"langgo/bootstrap"
 	"langgo/bootstrap/plugins"
 )
 
+//	@title			业务框架LangGo接口
+//	@version		1.0
+//	@description	LangGo相关接口
+//	@contact.name	qinguoyi
+//	@contact.email	qinguoyiwork@gmail.com
+//	@host			127.0.0.1:8890
+//	@BasePath		/
 func main() {
 	// config log
 	lgConfig := bootstrap.NewConfig("conf/config.yaml")
@@ -23,9 +31,9 @@ func main() {
 
 	// router
 	engine := api.NewRouter(lgConfig, corsM, traceL, requestL)
-	server := newHttpServer(lgConfig, engine)
+	server := app.NewHttpServer(lgConfig, engine)
 
 	// app run-server
-	app := newApp(lgConfig, lgLogger.Logger, server)
-	app.runServer()
+	application := app.NewApp(lgConfig, lgLogger.Logger, server)
+	application.RunServer()
 }

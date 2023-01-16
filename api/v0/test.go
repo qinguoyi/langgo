@@ -3,19 +3,26 @@ package v0
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"langgo/app/pkg/response"
 	"langgo/bootstrap"
 	"langgo/bootstrap/plugins"
-	"net/http"
 )
-
-var lgLogger *bootstrap.LangGoLogger
 
 // 不能提前创建，变量的初始化在main之前，导致lgDB为nil
 //var lgDB = new(plugins.LangGoDB).NewDB()
 
-// Test .
+var lgLogger *bootstrap.LangGoLogger
+
+// Test 测试
+//	@Summary		测试接口
+//	@Description	LangGo的测试接口
+//	@Tags			测试
+//	@Accept			application/json
+//	@Produce		application/json
+//	@Success		200	{object} response.Response
+//	@Router			/api/storage/v0/ping [get]
 func Test(c *gin.Context) {
-	var lgDB = new(plugins.LangGoDB).Use("mysql").NewDB()
+	var lgDB = new(plugins.LangGoDB).Use("default").NewDB()
 	var lgRedis = new(plugins.LangGoRedis).NewRedis()
 
 	lgDB.Exec("select now();")
@@ -32,5 +39,5 @@ func Test(c *gin.Context) {
 	}
 	lgLogger.WithContext(c).Info(fmt.Sprintf("%v", val))
 
-	c.String(http.StatusOK, "test router")
+	response.Success(c, "test router")
 }
