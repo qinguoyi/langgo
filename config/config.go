@@ -9,4 +9,5 @@ type Configuration struct {
 	Database []*plugins.Database `mapstructure:"database" json:"database" yaml:"database"`
 	Redis    *plugins.Redis      `mapstructure:"redis" json:"redis" yaml:"redis"`
 	Minio    *plugins.Minio      `mapstructure:"minio" json:"minio" yaml:"minio"`
+	ES       *plugins.ES         `mapstructure:"es" json:"es" yaml:"es"`
 }
