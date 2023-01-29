@@ -1,6 +1,56 @@
 basePath: /
 definitions:
-  langgo_app_pkg_response.Response:
+  models.CreateUser:
+    properties:
+      mobile:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    required:
+    - mobile
+    - name
+    - password
+    type: object
+  models.QueryUser:
+    properties:
+      mobile:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  models.QueryUserPage:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/models.QueryUser'
+        type: array
+      page:
+        $ref: '#/definitions/sqls.PageInfo'
+    type: object
+  models.UpdateUser:
+    properties:
+      mobile:
+        type: string
+      password:
+        type: string
+    required:
+    - mobile
+    - password
+    type: object
+  sqls.PageInfo:
+    properties:
+      limit:
+        type: integer
+      page:
+        type: integer
+      total:
+        type: integer
+    type: object
+  web.Response:
     properties:
       code:
         description: 自定义错误码
@@ -20,6 +70,171 @@ info:
   title: 业务框架LangGo接口
   version: "1.0"
 paths:
+  /api/langgo/v0/user:
+    get:
+      consumes:
+      - application/json
+      description: 翻页查询用户
+      parameters:
+      - description: 翻页
+        in: query
+        name: page
+        required: true
+        type: string
+      - description: 偏移
+        in: query
+        name: limit
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.QueryUserPage'
+              type: object
+      summary: 翻页查询用户
+      tags:
+      - 用户
+    post:
+      consumes:
+      - application/json
+      description: 创建用户接口
+      parameters:
+      - description: 创建用户请求体
+        in: body
+        name: RequestBody
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.Response'
+      summary: 创建用户接口
+      tags:
+      - 用户
+  /api/langgo/v0/user/{userid}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除用户
+      parameters:
+      - description: 用户名称
+        in: path
+        name: userid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.Response'
+      summary: 删除用户
+      tags:
+      - 用户
+    get:
+      consumes:
+      - application/json
+      description: 通过用户ID查询用户
+      parameters:
+      - description: 用户ID
+        in: path
+        name: userid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.QueryUser'
+              type: object
+      summary: 通过用户ID查询用户
+      tags:
+      - 用户
+    patch:
+      consumes:
+      - application/json
+      description: 根据用户ID更新用户
+      parameters:
+      - description: 用户ID
+        in: path
+        name: userid
+        required: true
+        type: string
+      - description: 更新用户请求体
+        in: body
+        name: RequestBody
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.QueryUser'
+              type: object
+      summary: 根据用户ID更新用户
+      tags:
+      - 用户
+  /api/langgo/v0/user/name/{name}:
+    get:
+      consumes:
+      - application/json
+      description: 根据用户名称查询用户
+      parameters:
+      - description: 用户名称
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: 翻页
+        in: query
+        name: page
+        required: true
+        type: string
+      - description: 限制
+        in: query
+        name: limit
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.QueryUserPage'
+              type: object
+      summary: 根据用户名称查询用户
+      tags:
+      - 用户
   /api/storage/v0/ping:
     get:
       consumes:
@@ -31,7 +246,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/langgo_app_pkg_response.Response'
+            $ref: '#/definitions/web.Response'
       summary: 测试接口
       tags:
       - 测试

@@ -1,7 +1,8 @@
-package response
+package web
 
 import (
 	"github.com/gin-gonic/gin"
+	"langgo/app/pkg/sqls"
 	"net/http"
 )
 
@@ -23,6 +24,25 @@ func Success(c *gin.Context, data interface{}) {
 		"ok",
 		data,
 	})
+}
+
+// SuccessPageData 翻页数据
+func SuccessPageData(c *gin.Context, results interface{}, page *sqls.PageInfo) {
+	Success(c,
+		&PageResult{
+			Results: results,
+			Page:    page,
+		})
+}
+
+// SuccessCursorData 游标翻页数据
+func SuccessCursorData(c *gin.Context, results interface{}, cursor string, hasMore bool) {
+	Success(c,
+		&CursorResult{
+			Results: results,
+			Cursor:  cursor,
+			HasMore: hasMore,
+		})
 }
 
 // ParamsError 参数错误

@@ -8,6 +8,7 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"gorm.io/gorm/schema"
 	"io"
 	"langgo/app/models"
 	"langgo/bootstrap"
@@ -116,6 +117,13 @@ func initPGGorm(dbConfig *plugins.Database, conf *config.Configuration) {
 		}
 	}
 
+	if gormConfig.NamingStrategy == nil {
+		gormConfig.NamingStrategy = schema.NamingStrategy{
+			//TablePrefix:   "t_",
+			SingularTable: true,
+		}
+	}
+
 	if db, err := gorm.Open(postgres.Open(dsn), gormConfig); err != nil {
 		bootstrap.NewLogger().Logger.Error("mysql connect failed, err:", zap.Any("err", err))
 		panic(err)
@@ -124,7 +132,7 @@ func initPGGorm(dbConfig *plugins.Database, conf *config.Configuration) {
 		sqlDB.SetMaxIdleConns(dbConfig.MaxIdleConns)
 		sqlDB.SetMaxOpenConns(dbConfig.MaxOpenConns)
 		// 执行数据库脚本建表
-		//initMySqlTables(db)
+		initMySqlTables(db)
 		lgDB[dbConfig.DBName].DB = db
 	}
 }
@@ -146,6 +154,13 @@ func initMySqlGorm(dbConfig *plugins.Database, conf *config.Configuration) {
 		gormConfig = &gorm.Config{
 			DisableForeignKeyConstraintWhenMigrating: true,                          // 禁用自动创建外键约束
 			Logger:                                   getGormLogger(dbConfig, conf), // 使用自定义 Logger
+		}
+	}
+
+	if gormConfig.NamingStrategy == nil {
+		gormConfig.NamingStrategy = schema.NamingStrategy{
+			//TablePrefix:   "t_",
+			SingularTable: true,
 		}
 	}
 

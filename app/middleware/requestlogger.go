@@ -66,9 +66,9 @@ func (r RequestLog) Handler() gin.HandlerFunc {
 		}
 		r.Logger.WithContext(c).Info(req)
 
+		// 处理业务
 		blw := &CustomResponseWriter{body: bytes.NewBufferString(""), ResponseWriter: c.Writer}
 		c.Writer = blw
-		// 处理业务
 		c.Next()
 		cost := time.Since(start)
 

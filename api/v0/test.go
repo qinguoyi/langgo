@@ -3,7 +3,7 @@ package v0
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"langgo/app/pkg/response"
+	"langgo/app/pkg/web"
 	"langgo/bootstrap"
 	"langgo/bootstrap/plugins"
 )
@@ -13,15 +13,15 @@ import (
 
 var lgLogger *bootstrap.LangGoLogger
 
-// Test 测试
+// TestHandler 测试
 //	@Summary		测试接口
 //	@Description	LangGo的测试接口
 //	@Tags			测试
 //	@Accept			application/json
 //	@Produce		application/json
-//	@Success		200	{object} response.Response
+//	@Success		200	{object}	web.Response
 //	@Router			/api/storage/v0/ping [get]
-func Test(c *gin.Context) {
+func TestHandler(c *gin.Context) {
 	var lgDB = new(plugins.LangGoDB).Use("default").NewDB()
 	var lgRedis = new(plugins.LangGoRedis).NewRedis()
 
@@ -39,5 +39,5 @@ func Test(c *gin.Context) {
 	}
 	lgLogger.WithContext(c).Info(fmt.Sprintf("%v", val))
 
-	response.Success(c, "test router")
+	web.Success(c, "test router")
 }

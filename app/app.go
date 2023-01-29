@@ -20,7 +20,7 @@ type App struct {
 	httpSrv *http.Server
 }
 
-// NewHttpServer 创建http server engine
+// NewHttpServer 创建http app engine
 func NewHttpServer(
 	conf *config.Configuration,
 	router *gin.Engine,
@@ -71,9 +71,9 @@ func (a *App) RunServer() {
 
 // run 启动服务
 func (a *App) run() error {
-	// 启动 http server
+	// 启动 http app
 	go func() {
-		a.logger.Info("http server started")
+		a.logger.Info("http app started")
 		if err := a.httpSrv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			panic(err)
 		}
@@ -84,8 +84,8 @@ func (a *App) run() error {
 
 // stop 停止服务
 func (a *App) stop(ctx context.Context) error {
-	// 关闭 http server
-	a.logger.Info("http server has been stop")
+	// 关闭 http app
+	a.logger.Info("http app has been stop")
 	if err := a.httpSrv.Shutdown(ctx); err != nil {
 		return err
 	}

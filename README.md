@@ -10,8 +10,20 @@
 * 支持服务优雅重启
 * DB支持多个实例切换
 * 支持swag api文档
+* 自定义GORM封装及操作示例(包括事务)
+* 完整的CURD接口示例
 
 ## TODO
 * 静态资源api测试
-* 完整的CURD接口
 * 单元测试
+* redis分布式锁使用示例
+* 雪花算法生成分布式ID
+* 增加es基础组件
+* Makefile
+* Dockerfile
+
+## 测试
+* 生成swag文档
+```shell
+swag init -g .\cmd\main.go
+```

@@ -33,7 +33,7 @@ func main() {
 	engine := api.NewRouter(lgConfig, corsM, traceL, requestL)
 	server := app.NewHttpServer(lgConfig, engine)
 
-	// app run-server
+	// app run-app
 	application := app.NewApp(lgConfig, lgLogger.Logger, server)
 	application.RunServer()
 }

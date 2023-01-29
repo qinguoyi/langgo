@@ -41,10 +41,19 @@ func NewRouter(
 func setApiGroupRoutes(
 	router *gin.Engine,
 ) *gin.RouterGroup {
-	group := router.Group("/api/storage")
-	routerV0 := group.Group("/v0")
+	group := router.Group("/api/langgo/v0")
+
+	// test
+	group.GET("/ping", v0.TestHandler)
+
+	//user
 	{
-		routerV0.GET("/ping", v0.Test)
+		group.POST("/user", v0.CreateUserHandler)
+		group.GET("/user", v0.QueryUserHandler)
+		group.GET("/user/:userid", v0.QueryUserByUUIDHandler)
+		group.GET("/user/name/:username", v0.QueryUserByNameHandler)
+		group.PATCH("/user/:userid", v0.UpdateUserByUUIDHandler)
+		group.DELETE("/user/:userid", v0.DeleteUserByUUIDHandler)
 	}
 	return group
 }
